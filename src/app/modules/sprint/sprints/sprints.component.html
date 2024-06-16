@@ -1,0 +1,34 @@
+<div>
+    <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3">
+        <h1 class="h2">Sprints</h1>
+    </div>
+
+    <!-- Search and Add Button -->
+    <div class="row mb-3">
+        <div class="col-12 col-md-6">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search...">
+                <div class="input-group-append">
+                    <span class="input-group-text">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-auto">
+            <a routerLink="create-sprint"><button class="btn btn-success">Create Sprint <i class="fas fa-plus ml-2"></i></button></a>
+        </div>
+    </div>
+
+    <!-- Listing -->
+    <div class="list-group mt-5">
+        <div *ngFor="let sprint of sprints" class="list-group-item d-flex justify-content-between align-items-center">
+            <span>{{ sprint.Name }}</span>
+            <div>
+                <span class="">{{ sprint.StartDate }} - {{ sprint.EndDate }}</span>
+                <span class="badge sp-badge ms-3">{{ sprint.Points }}</span>
+                <button class="btn btn-danger btn-sm ms-3" (click)="deleteSprint(sprint.Id)"><i class="fas fa-trash"></i></button>
+            </div>
+        </div>
+    </div>
+</div>

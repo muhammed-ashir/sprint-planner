@@ -1,0 +1,9 @@
+.input-group-text{
+    height: 100%;
+    border-radius: 0 var(--bs-border-radius) var(--bs-border-radius) 0;
+}
+
+.sp-badge {
+    background-color: rgba(11, 120, 183, 0.22);
+    color: black;
+}

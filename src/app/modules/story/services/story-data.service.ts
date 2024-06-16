@@ -37,6 +37,11 @@ export class StoryDataService {
     this.saveStories(updatedStories);
   }
 
+  deleteAllStories() {
+    const updatedStories: Story[] = [];
+    this.saveStories(updatedStories);
+  }
+
   generateId(name: string): string{
       return Date.now() + "-" + name;
   }

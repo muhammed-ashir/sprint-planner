@@ -22,6 +22,8 @@ export class SprintDataService {
 
   private saveSprints(sprints: Sprint[]): void {
     this.storageService.setItem('sprints', sprints);
+    console.log(sprints);
+    
     this.sprintsSubject.next(sprints);
   }
 

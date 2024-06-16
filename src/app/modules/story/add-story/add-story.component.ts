@@ -11,12 +11,12 @@ import { StoryDataService } from '../services/story-data.service';
 export class AddStoryComponent {
   @Input() show: boolean = false; 
   @Output() onHide: EventEmitter<void> = new EventEmitter<void>(); 
-  storyForm!: FormGroup;
+  addStoryForm!: FormGroup;
 
   constructor(private storyDataService: StoryDataService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-      this.storyForm = this.formBuilder.group({
+      this.addStoryForm = this.formBuilder.group({
           Name: ['', Validators.required],
           Priority: ['', Validators.required],
           Points: ['', Validators.required]
@@ -24,15 +24,35 @@ export class AddStoryComponent {
   }
 
   closeModal() {
-    this.show = false; 
-    this.onHide.emit(); 
+      this.show = false; 
+      this.onHide.emit(); 
   }
 
   onSubmit() {
-      if (this.storyForm.valid) {
-          const storyData: Story = this.storyForm.value;
+      this.addStoryForm.markAllAsTouched();
+      if (this.addStoryForm.valid) {
+          const storyData: Story = this.addStoryForm.value;
           this.storyDataService.addStory(storyData);
-          this.storyForm.reset();
+          this.addStoryForm.reset();
+          this.closeModal();
       }
+  }
+
+  getErrorMessages(controlName: string): string[] {
+      const control = this.addStoryForm.get(controlName);
+      const errors = control?.errors;
+      const messages: string[] = [];
+    
+      if (errors) {
+        for (const error in errors) {
+            switch (error) {
+              case 'required':
+                messages.push(`This field is required`);
+                break;
+            }
+        }
+      }
+    
+      return messages;
   }
 }

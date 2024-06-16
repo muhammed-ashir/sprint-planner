@@ -1,27 +1,36 @@
-<div class="modal fade add-story-modal" [class.show]="show" tabindex="-1" role="dialog" aria-labelledby="addStoryModalLabel" aria-hidden="true">
+<div class="modal fade add-story-modal" [class.show]="show" tabindex="-1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header ps-4 pe-4">
                 <h5 class="modal-title" id="addStoryModalLabel">Add Story</h5>
             </div>
             <div class="modal-body ps-4 pe-4">
-                <form [formGroup]="storyForm" (ngSubmit)="onSubmit()">
+                <form [formGroup]="addStoryForm" (ngSubmit)="onSubmit()">
                     <div class="form-group">
                         <label for="storyName">Name</label>
                         <input formControlName="Name" type="text" class="form-control mt-2" id="storyName">
+                        <div *ngIf="addStoryForm.get('Name')?.invalid && addStoryForm.get('Name')?.touched" class="text-danger">
+                            <div *ngFor="let error of getErrorMessages('Name')">{{ error }}</div>
+                        </div>
                     </div>
                     <div class="form-group mt-3">
                         <label for="storyPriority">Priority</label>
-                        <select formControlName="Priority" class="form-select mt-2" aria-label="Default select example">
+                        <select formControlName="Priority" class="form-select mt-2">
                             <option value="" disabled selected>Select Priority</option>
                             <option value="low">Low</option>
                             <option value="medium">Medium</option>
                             <option value="high">High</option>
                         </select>
+                        <div *ngIf="addStoryForm.get('Priority')?.invalid && addStoryForm.get('Priority')?.touched" class="text-danger">
+                            <div *ngFor="let error of getErrorMessages('Priority')">{{ error }}</div>
+                        </div>
                     </div>
                     <div class="form-group mt-3">
                         <label for="storyPoint">Point</label>
                         <input formControlName="Points" type="number" class="form-control mt-2" id="storyPoint">
+                        <div *ngIf="addStoryForm.get('Points')?.invalid && addStoryForm.get('Points')?.touched" class="text-danger">
+                            <div *ngFor="let error of getErrorMessages('Points')">{{ error }}</div>
+                        </div>
                     </div>
                     <div class="mt-4 mb-3">
                         <button type="submit" class="btn btn-primary">Add</button>

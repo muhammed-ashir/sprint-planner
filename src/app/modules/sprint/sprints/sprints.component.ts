@@ -20,4 +20,9 @@ export class SprintsComponent {
   deleteSprint(id: string) {
     this.sprintDataService.deleteSprint(id);
   }
+
+  formatAsDDMONYYYY(date: Date) {
+    const options: any = { day: '2-digit', month: 'short', year: 'numeric' };
+    return new Date(date).toLocaleDateString('en-GB', options).toUpperCase();
+  }
 }

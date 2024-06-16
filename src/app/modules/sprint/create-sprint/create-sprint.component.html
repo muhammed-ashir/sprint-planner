@@ -1,1 +1,102 @@
-<p>create-sprint works!</p>
+<div>
+    <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3">
+        <h1 class="h2">Create Sprint</h1>
+    </div>
+
+    <form [formGroup]="createSprintForm" (ngSubmit)="onSubmit()">
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control mt-2" id="name" formControlName="Name">
+                    <div *ngIf="createSprintForm.get('Name')?.invalid && createSprintForm.get('Name')?.touched" class="text-danger">
+                        <div *ngFor="let error of getErrorMessages('Name')">{{ error }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="points">Points</label>
+                    <input type="number" class="form-control mt-2" id="points" formControlName="Points">
+                    <div *ngIf="createSprintForm.get('Points')?.invalid && createSprintForm.get('Points')?.touched" class="text-danger">
+                        <div *ngFor="let error of getErrorMessages('Points')">{{ error }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="startDate">Start date</label>
+                    <input type="date" class="form-control mt-2" id="startDate" formControlName="StartDate" onclick="this.showPicker()">
+                    <div *ngIf="createSprintForm.get('StartDate')?.invalid && createSprintForm.get('StartDate')?.touched" class="text-danger">
+                        <div *ngFor="let error of getErrorMessages('StartDate')">{{ error }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3 mt-4">
+            <div class="col-md-8">
+                <label>Added stories to this sprint</label>
+            </div>
+            <div class="col-md-4 d-flex justify-content-end">
+                <button class="btn btn-primary" type="button" (click)="populateAddedStories(createSprintForm.value.Points)">Auto Select</button>
+                <button class="btn btn-danger ms-3" type="button" (click)="onClearAddedStories()">Clear</button>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-12">
+                <div class="border dashed-border p-3">
+                    <div class="list-group">
+                        <div *ngFor="let story of createSprintForm.value.AddedStories; let i=index" class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{{ story.Name }}</span>
+                            <div>
+                                <span class="badge bg-primary">{{ story.Priority }}</span>
+                                <span class="badge sp-badge ms-3">{{ story.Points }}</span>
+                                <button class="btn btn-danger btn-sm ms-3" type="button" (click)="removeStory(i)">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="createSprintForm.get('AddedStories')?.invalid" class="text-danger">
+                <div *ngFor="let error of getErrorMessages('AddedStories')">{{ error }}</div>
+            </div>
+        </div>
+
+        <div class="row mb-3 mt-5">
+            <div class="col-md-6">
+                <label>Stories</label>
+            </div>
+            <div class="col-md-6 d-flex justify-content-end">
+                <button class="btn btn-danger" type="button" (click)="onClearStories()">Clear</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-">
+                <div class="list-group">
+                    <div *ngFor="let story of stories" class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>{{ story.Name }}</span>
+                        <div>
+                            <span class="badge bg-primary">{{ story.Priority }}</span>
+                            <span class="badge sp-badge ms-3">{{ story.Points }}</span>
+                            <button class="btn btn-success btn-sm ms-3" type="button" (click)="addStory(story)">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-5 mt-5">
+            <div class="col-md-12 d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="button" class="btn btn-secondary ms-2" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,14 @@
+.sp-badge {
+    background-color: rgba(11, 120, 183, 0.22);
+    color: black;
+}
+
+.dashed-border {
+    border: 3px dashed #ced4da !important;
+    border-radius: 5px;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa; 
+    cursor: pointer; 
+}

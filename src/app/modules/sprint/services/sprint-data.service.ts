@@ -8,7 +8,7 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 })
 export class SprintDataService {
   private sprintsSubject = new BehaviorSubject<Sprint[]>([]);
-  stories$ = this.sprintsSubject.asObservable();
+  sprints$ = this.sprintsSubject.asObservable();
   
   constructor(private storageService: StorageService) {
     this.loadStories();

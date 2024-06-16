@@ -5,6 +5,7 @@ import { Story } from 'src/app/shared/models/story';
 import { StoryDataService } from '../../story/services/story-data.service';
 import { Sprint } from 'src/app/shared/models/sprint';
 import { debounceTime } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-sprint',
@@ -17,7 +18,9 @@ export class CreateSprintComponent {
 
   constructor(private sprintDataService: SprintDataService, 
     private fb: FormBuilder,
-    private storyDataService: StoryDataService) {
+    private storyDataService: StoryDataService,
+    private router: Router
+  ) {
       this.createSprintForm = this.fb.group({
         Name: ['', Validators.required],
         Points: ['', [Validators.required, Validators.min(0)]],
@@ -79,6 +82,7 @@ export class CreateSprintComponent {
 
   onClearStories() {
       this.storyDataService.deleteAllStories();
+      this.router.navigate(['/stories']);
   }
 
   onSubmit() {
@@ -88,7 +92,7 @@ export class CreateSprintComponent {
         const sprintData: Sprint = this.createSprintForm.value;
         sprintData.EndDate = this.calculateEndDate(sprintData.Points, sprintData.StartDate);
         this.sprintDataService.addSprint(sprintData);
-        
+        this.router.navigate(['/sprints']);
       }
   }
 
@@ -142,5 +146,13 @@ export class CreateSprintComponent {
       }
     
       return messages;
+  }
+
+  getPriorityBadgeClass(priority: string) {
+    return {
+      'bg-danger': priority.toLowerCase() === 'high',
+      'bg-warning': priority.toLowerCase() === 'medium',
+      'bg-secondary': priority.toLowerCase() === 'low'
+    };
   }
 }

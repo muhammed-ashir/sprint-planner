@@ -51,7 +51,7 @@
                         <div *ngFor="let story of createSprintForm.value.AddedStories; let i=index" class="list-group-item d-flex justify-content-between align-items-center">
                             <span>{{ story.Name }}</span>
                             <div>
-                                <span class="badge bg-primary">{{ story.Priority }}</span>
+                                <span class="badge" [ngClass]="getPriorityBadgeClass(story.Priority)">{{ story.Priority }}</span>
                                 <span class="badge sp-badge ms-3">{{ story.Points }}</span>
                                 <button class="btn btn-danger btn-sm ms-3" type="button" (click)="removeStory(i)">
                                     <i class="fas fa-minus"></i>
@@ -70,18 +70,18 @@
             <div class="col-md-6">
                 <label>Stories</label>
             </div>
-            <div class="col-md-6 d-flex justify-content-end">
+            <div class="col-md-6 d-flex justify-content-end" *ngIf="stories.length">
                 <button class="btn btn-danger" type="button" (click)="onClearStories()">Clear</button>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" *ngIf="stories.length">
             <div class="col-md-">
                 <div class="list-group">
                     <div *ngFor="let story of stories" class="list-group-item d-flex justify-content-between align-items-center">
                         <span>{{ story.Name }}</span>
                         <div>
-                            <span class="badge bg-primary">{{ story.Priority }}</span>
+                            <span class="badge" [ngClass]="getPriorityBadgeClass(story.Priority)">{{ story.Priority }}</span>
                             <span class="badge sp-badge ms-3">{{ story.Points }}</span>
                             <button class="btn btn-success btn-sm ms-3" type="button" (click)="addStory(story)">
                                 <i class="fas fa-plus"></i>
@@ -92,10 +92,14 @@
             </div>
         </div>
 
+        <div class="row" *ngIf="!stories.length">
+            <p class="text-muted">No stories available. Please add stories</p>
+        </div>
+
         <div class="row mb-5 mt-5">
             <div class="col-md-12 d-flex justify-content-end">
                 <button type="submit" class="btn btn-primary">Add</button>
-                <button type="button" class="btn btn-secondary ms-2" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary ms-2" routerLink="/sprints">Cancel</button>
             </div>
         </div>
     </form>

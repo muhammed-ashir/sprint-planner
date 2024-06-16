@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SprintDataService } from '../services/sprint-data.service';
 
 @Component({
@@ -6,14 +6,16 @@ import { SprintDataService } from '../services/sprint-data.service';
   templateUrl: './sprints.component.html',
   styleUrls: ['./sprints.component.css']
 })
-export class SprintsComponent {
-  sprints!: any[];
+export class SprintsComponent implements OnInit {
+  sprints: any[] = [];
+  filteredSprints: any[] = [];
 
   constructor(private sprintDataService: SprintDataService) {}
 
   ngOnInit(): void {
-    this.sprintDataService.stories$.subscribe(sprints => {
+    this.sprintDataService.sprints$.subscribe(sprints => {
       this.sprints = sprints;
+      this.filteredSprints = sprints;
     });
   }
 
@@ -24,5 +26,12 @@ export class SprintsComponent {
   formatAsDDMONYYYY(date: Date) {
     const options: any = { day: '2-digit', month: 'short', year: 'numeric' };
     return new Date(date).toLocaleDateString('en-GB', options).toUpperCase();
+  }
+
+  onSearch(event: any) {
+    const searchTerm = event.target.value.toLowerCase();
+    this.filteredSprints = this.sprints.filter(sprint => 
+      sprint.Name.toLowerCase().includes(searchTerm)
+    );
   }
 }

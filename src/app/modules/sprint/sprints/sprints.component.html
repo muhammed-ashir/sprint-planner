@@ -6,7 +6,7 @@
     <div class="row mb-3">
         <div class="col-12 col-md-6">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search...">
+                <input type="text" class="form-control" placeholder="Search..." (input)="onSearch($event)">
                 <div class="input-group-append">
                     <span class="input-group-text">
                         <i class="fas fa-search"></i>
@@ -20,10 +20,10 @@
     </div>
 
     <div class="list-group mt-5">
-        <div *ngFor="let sprint of sprints" class="list-group-item d-flex justify-content-between align-items-center">
+        <div *ngFor="let sprint of filteredSprints" class="list-group-item d-flex justify-content-between align-items-center">
             <span>{{ sprint.Name }}</span>
             <div>
-                <span class="">{{ formatAsDDMONYYYY(sprint.StartDate) }} - {{ formatAsDDMONYYYY(sprint.EndDate) }}</span>
+                <span>{{ formatAsDDMONYYYY(sprint.StartDate) }} - {{ formatAsDDMONYYYY(sprint.EndDate) }}</span>
                 <span class="badge sp-badge ms-3">{{ sprint.Points }}</span>
                 <button class="btn btn-danger btn-sm ms-3" (click)="deleteSprint(sprint.Id)"><i class="fas fa-trash"></i></button>
             </div>

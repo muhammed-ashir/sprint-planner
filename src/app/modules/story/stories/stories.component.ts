@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { DataService } from 'src/app/shared/services/data.service';
+import { StoryDataService } from '../services/story-data.service';
+import { Story } from 'src/app/shared/models/story';
 
 @Component({
   selector: 'app-stories',
@@ -7,14 +8,13 @@ import { DataService } from 'src/app/shared/services/data.service';
   styleUrls: ['./stories.component.css']
 })
 export class StoriesComponent {
-
-  stories!: any[];
+  stories!: Story[];
   showModal: boolean = false;
 
-  constructor(private dataService: DataService) {}
+  constructor(private storyDataService: StoryDataService) {}
 
   ngOnInit(): void {
-    this.dataService.stories$.subscribe(stories => {
+    this.storyDataService.stories$.subscribe(stories => {
       this.stories = stories;
     });
   }
@@ -24,6 +24,6 @@ export class StoriesComponent {
   }
 
   deleteStory(id: string) {
-    this.dataService.deleteStory(id);
+    this.storyDataService.deleteStory(id);
   }
 }

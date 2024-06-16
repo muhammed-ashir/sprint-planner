@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Story } from 'src/app/shared/models/story';
-import { DataService } from 'src/app/shared/services/data.service';
+import { StoryDataService } from '../services/story-data.service';
 
 @Component({
   selector: 'app-add-story',
@@ -13,7 +13,7 @@ export class AddStoryComponent {
   @Output() onHide: EventEmitter<void> = new EventEmitter<void>(); 
   storyForm!: FormGroup;
 
-  constructor(private dataService: DataService, private formBuilder: FormBuilder) { }
+  constructor(private storyDataService: StoryDataService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
       this.storyForm = this.formBuilder.group({
@@ -31,7 +31,7 @@ export class AddStoryComponent {
   onSubmit() {
       if (this.storyForm.valid) {
           const storyData: Story = this.storyForm.value;
-          this.dataService.addStory(storyData);
+          this.storyDataService.addStory(storyData);
           this.storyForm.reset();
       }
   }

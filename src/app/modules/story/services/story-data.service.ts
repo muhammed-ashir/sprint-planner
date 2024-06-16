@@ -26,10 +26,16 @@ export class StoryDataService {
     this.storiesSubject.next(stories);
   }
 
-  addStory(story: Story) {    
+  addStory(story: Story) : boolean {    
+    const existingStory = this.storiesSubject.value.find(s => s.Name === story.Name);
+    if (existingStory) {
+        return false;
+    }
+
     const newStory = { ...story, Id: this.generateId(story.Name) };
     const updatedStories = [...this.storiesSubject.value, newStory];
     this.saveStories(updatedStories);
+    return true
   }
 
   deleteStory(id: string) {

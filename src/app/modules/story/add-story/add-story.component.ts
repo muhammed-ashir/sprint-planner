@@ -12,6 +12,7 @@ export class AddStoryComponent {
   @Input() show: boolean = false; 
   @Output() onHide: EventEmitter<void> = new EventEmitter<void>(); 
   addStoryForm!: FormGroup;
+  errorsList: string[] = [];
 
   constructor(private storyDataService: StoryDataService, private formBuilder: FormBuilder) { }
 
@@ -32,9 +33,14 @@ export class AddStoryComponent {
       this.addStoryForm.markAllAsTouched();
       if (this.addStoryForm.valid) {
           const storyData: Story = this.addStoryForm.value;
-          this.storyDataService.addStory(storyData);
-          this.addStoryForm.reset();
-          this.closeModal();
+          const storyAdded = this.storyDataService.addStory(storyData);
+          if (storyAdded) {
+              this.addStoryForm.reset();
+              this.closeModal();
+          }
+          else {
+              this.errorsList.push("Duplicate story found!");
+          }
       }
   }
 

@@ -20,7 +20,9 @@ export class SprintsComponent implements OnInit {
   }
 
   deleteSprint(id: string) {
-    this.sprintDataService.deleteSprint(id);
+    if (confirm("Are you sure to delete?")) {
+      this.sprintDataService.deleteSprint(id);
+    }
   }
 
   formatAsDDMONYYYY(date: Date) {

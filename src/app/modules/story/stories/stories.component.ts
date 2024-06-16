@@ -26,7 +26,9 @@ export class StoriesComponent implements OnInit {
   }
 
   deleteStory(id: string) {
-    this.storyDataService.deleteStory(id);
+    if (confirm("Are you sure to delete?")) {
+      this.storyDataService.deleteStory(id);
+    }
   }
 
   onSearch(event: any) {

@@ -1,0 +1,34 @@
+<div class="modal fade add-story-modal" [class.show]="show" tabindex="-1" role="dialog" aria-labelledby="addStoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header ps-4 pe-4">
+                <h5 class="modal-title" id="addStoryModalLabel">Add Story</h5>
+            </div>
+            <div class="modal-body ps-4 pe-4">
+                <form [formGroup]="storyForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="storyName">Name</label>
+                        <input formControlName="Name" type="text" class="form-control mt-2" id="storyName">
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="storyPriority">Priority</label>
+                        <select formControlName="Priority" class="form-select mt-2" aria-label="Default select example">
+                            <option value="" disabled selected>Select Priority</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="storyPoint">Point</label>
+                        <input formControlName="Points" type="number" class="form-control mt-2" id="storyPoint">
+                    </div>
+                    <div class="mt-4 mb-3">
+                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn btn-secondary ms-2" data-dismiss="modal" (click)="closeModal()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+.sidebar {
+    z-index: 100;
+    background-color: rgba(11, 120, 183, 0.05);
+    width: 100%;
+}
+
+.sidebar .sidebar-sticky {
+    padding-top: 20px;
+}
+
+.logo-img-div {
+    padding: 10px; 
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.brand-name {
+    margin-left: 15px;
+}
+
+.sidebar .nav-link {
+    color: #000000;
+}
+
+.sidebar .nav-link.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.sidebar .nav-link.active i {
+    color: #fff;
+}
+
+.sidebar .nav-link.active:hover {
+    background-color: #007bff;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #e9ecef;
+}

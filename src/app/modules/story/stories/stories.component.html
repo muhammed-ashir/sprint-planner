@@ -1,0 +1,37 @@
+<div>
+    <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-4">
+        <h1 class="h2">Stories</h1>
+    </div>
+    <div class="row mb-5">
+        <div class="col-12 col-md-6">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search...">
+                <div class="input-group-append cursor-pointer">
+                    <span class="input-group-text">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-success" (click)="toggleModal()">Add Story <i class="fas fa-plus ms-2"></i></button>
+        </div>
+    </div>
+    <div class="list-group">
+        <div *ngFor="let story of stories" class="list-group-item d-flex justify-content-between align-items-center">
+            <span>{{ story.Name }}</span>
+            <div>
+                <span class="badge bg-primary">{{ story.Priority }}</span>
+                <span class="badge sp-badge ms-3">{{ story.Points }}</span>
+                <button class="btn btn-danger ms-3" (click)="deleteStory(story.Id)"><i class="fas fa-trash"></i></button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div *ngIf="showModal">
+    <app-add-story [show]="showModal" (onHide)="toggleModal()"></app-add-story> 
+</div>
+
+
